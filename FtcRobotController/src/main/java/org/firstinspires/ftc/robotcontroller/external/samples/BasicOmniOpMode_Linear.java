@@ -33,6 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -73,6 +75,11 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
     private DcMotor leftBackDrive = null;
     private DcMotor rightFrontDrive = null;
     private DcMotor rightBackDrive = null;
+    private DcMotor leftLift = null;
+    private DcMotor rightLift = null;
+    private CRServo liftServo = null;
+    private Servo clawRotate = null;
+    private Servo clawClose = null;
 
     @Override
     public void runOpMode() {
@@ -83,6 +90,11 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
         rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
+        leftLift = hardwareMap.get(DcMotor.class, "leftLift");
+        rightLift = hardwareMap.get(DcMotor.class, "rightLift");
+        liftServo = hardwareMap.get(CRServo.class, "liftServo");
+        clawRotate = hardwareMap.get(Servo.class, "clawRotate");
+        clawClose = hardwareMap.get(Servo.class, "clawClose");
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -98,6 +110,8 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         leftBackDrive.setDirection(DcMotor.Direction.REVERSE);
         rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
         rightBackDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftLift.setDirection(DcMotor.Direction.FORWARD);
+        rightLift.setDirection(DcMotor.Direction.FORWARD);
 
         // Wait for the game to start (driver presses START)
         telemetry.addData("Status", "Initialized");
