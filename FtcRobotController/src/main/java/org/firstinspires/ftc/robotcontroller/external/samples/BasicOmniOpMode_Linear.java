@@ -77,7 +77,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
     private DcMotor rightBackDrive = null;
     private DcMotor leftLift = null;
     private DcMotor rightLift = null;
-    private CRServo liftServo = null;
+    private Servo liftServo = null;
     private Servo clawRotate = null;
     private Servo clawClose = null;
 
@@ -92,7 +92,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
         leftLift = hardwareMap.get(DcMotor.class, "leftLift");
         rightLift = hardwareMap.get(DcMotor.class, "rightLift");
-        liftServo = hardwareMap.get(CRServo.class, "liftServo");
+        liftServo = hardwareMap.get(Servo.class, "liftServo");
         clawRotate = hardwareMap.get(Servo.class, "clawRotate");
         clawClose = hardwareMap.get(Servo.class, "clawClose");
 
@@ -128,6 +128,13 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double lateral =  gamepad1.left_stick_x;
             double yaw     =  gamepad1.right_stick_x;
+            leftLift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
+            rightLift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
+            if (gamepad1.x) {
+                liftServo.setPosition(1);
+            }
+            else liftServo.setPosition(0);
+
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
