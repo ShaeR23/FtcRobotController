@@ -35,7 +35,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
@@ -78,7 +77,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
     private DcMotor rightBackDrive = null;
     private DcMotor leftLift = null;
     private DcMotor rightLift = null;
-    private Servo liftServo = null;
+    private DcMotor arm = null;
     private Servo clawRotate = null;
     private Servo clawClose = null;
 
@@ -93,7 +92,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
         rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
         leftLift = hardwareMap.get(DcMotor.class, "leftLift");
         rightLift = hardwareMap.get(DcMotor.class, "rightLift");
-        liftServo = hardwareMap.get(Servo.class, "liftServo");
+        arm = hardwareMap.get(DcMotor.class, "arm");
         clawRotate = hardwareMap.get(Servo.class, "clawRotate");
         clawClose = hardwareMap.get(Servo.class, "clawClose");
 
@@ -131,10 +130,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double yaw     =  gamepad1.right_stick_x;
             leftLift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
             rightLift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
-            if (gamepad1.x) {
-                liftServo.setPosition(1);
-            }
-            else liftServo.setPosition(0);
+            //arm.setPower(gamepad1.x);
 
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
