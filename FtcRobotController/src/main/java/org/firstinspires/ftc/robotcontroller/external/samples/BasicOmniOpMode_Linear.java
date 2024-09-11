@@ -128,9 +128,11 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double lateral =  gamepad1.left_stick_x;
             double yaw     =  gamepad1.right_stick_x;
-            leftLift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
-            rightLift.setPower(gamepad1.right_trigger-gamepad1.left_trigger);
-            //arm.setPower(gamepad1.x);
+            leftLift.setPower(gamepad2.left_stick_y);
+            rightLift.setPower(gamepad2.left_stick_y);
+            arm.setPower(gamepad2.right_stick_y);
+            clawRotate.setPosition(gamepad2.right_trigger);
+            clawClose.setPosition(gamepad2.left_trigger);
 
 
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
@@ -139,6 +141,7 @@ public class BasicOmniOpMode_Linear extends LinearOpMode {
             double rightFrontPower = axial - lateral - yaw;
             double leftBackPower   = axial - lateral + yaw;
             double rightBackPower  = axial + lateral - yaw;
+
 
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
